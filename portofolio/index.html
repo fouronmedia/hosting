@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Designer Profesional | Membangun Otoritas Digital</title>
+    
+    <!-- Fonts: Inter (Body) & Playfair Display (Headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a', // Slate 950
+                        accent: '#d4af37', // Metallic Gold
+                        glass: 'rgba(255, 255, 255, 0.05)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Glassmorphism Utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Utility for reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Selection */
+        ::selection {
+            background: #d4af37;
+            color: #000;
+        }
+        
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 p-4" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel px-6 py-3 rounded-full">
+            <a href="#" class="font-serif text-xl font-bold tracking-wider text-white">ARCHITECT.</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#portfolio" class="hover:text-accent transition-colors">Proyek Web</a>
+                <a href="#services" class="hover:text-accent transition-colors">Layanan</a>
+                <a href="#process" class="hover:text-accent transition-colors">Proses</a>
+            </div>
+            <a href="#contact" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-accent transition-colors duration-300">
+                Mulai Proyek
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <!-- Canvas Background -->
+        <canvas id="hero-canvas" class="absolute inset-0 z-0"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050505] z-10"></div>
+        
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto">
+            <p class="reveal text-accent tracking-[0.2em] text-xs md:text-sm uppercase font-semibold mb-4">Premium Web Design Specialist</p>
+            <h1 class="reveal delay-100 font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 text-white mix-blend-difference">
+                Website yang <br> <span class="italic font-light text-slate-400">Membangun Otoritas.</span>
+            </h1>
+            <p class="reveal delay-200 text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
+                Saya merancang website korporat berkelas tinggi yang menggabungkan estetika minimalis, performa teknis, dan psikologi konversi.
+            </p>
+            <div class="reveal delay-300 flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#portfolio" class="group relative px-8 py-4 bg-white text-black rounded-full font-semibold overflow-hidden">
+                    <span class="relative z-10 group-hover:text-white transition-colors duration-300">Lihat Portofolio Web</span>
+                    <div class="absolute inset-0 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
+                </a>
+                <a href="#services" class="flex items-center text-slate-300 hover:text-white transition-colors gap-2 text-sm font-medium">
+                    <i class="ph ph-arrow-down-circle text-2xl"></i> Jelajahi Layanan
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center animate-float">
+            <span class="text-[10px] uppercase tracking-widest text-slate-500 mb-2">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-slate-500 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Logo Marquee (Social Proof) -->
+    <div class="w-full bg-[#0a0a0a] border-y border-white/5 py-10 relative overflow-hidden z-20">
+        <div class="flex items-center justify-center gap-12 md:gap-24 opacity-40 grayscale">
+            <!-- Mock Logos -->
+            <h3 class="text-xl font-serif font-bold">VANGUARD</h3>
+            <h3 class="text-xl font-sans font-black tracking-tighter">NEXUS.CORP</h3>
+            <h3 class="text-xl font-serif italic">Prestige</h3>
+            <h3 class="text-xl font-mono">BLCKCHAIN</h3>
+            <h3 class="text-xl font-sans font-bold">ALPHATECH</h3>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper with Grid Background -->
+    <div class="bg-grid relative z-20">
+        
+        <!-- Bento Grid Section (Services & Philosophy) -->
+        <section id="services" class="py-24 px-4 md:px-8 max-w-7xl mx-auto">
+            <div class="mb-16 md:flex justify-between items-end reveal">
+                <div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Layanan Web Premium</h2>
+                    <p class="text-slate-400 max-w-md">Spesialisasi dalam ekosistem website end-to-end, dari wireframe hingga deployment.</p>
+                </div>
+                <div class="hidden md:block w-32 h-[1px] bg-slate-700 mb-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+                <!-- Large Item: UI/UX -->
+                <div class="glass-panel p-8 rounded-2xl md:col-span-2 relative overflow-hidden group reveal">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="ph ph-desktop text-9xl"></i>
+                    </div>
+                    <div class="h-full flex flex-col justify-end relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Interface Design (UI)</h3>
+                        <p class="text-slate-400">Desain visual pixel-perfect yang merepresentasikan nilai brand Anda. Fokus pada tipografi, ruang putih (whitespace), dan hierarki visual yang kuat agar website terlihat mahal.</p>
+                    </div>
+                </div>
+
+                <!-- Tall Item: Tech Stack -->
+                <div class="glass-panel p-8 rounded-2xl md:row-span-2 relative overflow-hidden group reveal delay-100">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
+                    <!-- Fixed Image URL: Coding/Code Screen -->
+                    <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                    
+                    <div class="absolute bottom-8 left-8 right-8 z-20">
+                        <h3 class="text-2xl font-bold text-white mb-2">Frontend Development</h3>
+                        <p class="text-slate-400 text-sm mb-4">Membangun website interaktif yang ringan dan responsif di semua perangkat.</p>
+                        <ul class="text-sm text-slate-500 space-y-2">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-accent"></i> Responsive (Mobile First)</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-accent"></i> Micro-interactions</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-accent"></i> SEO Optimization</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-accent"></i> Fast Loading (Core Vitals)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Small Item: UX Research -->
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between group hover:border-accent/50 transition-colors reveal">
+                    <i class="ph ph-users-three text-4xl text-accent"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">UX Research</h3>
+                        <p class="text-slate-400 text-sm mt-2">Memetakan perjalanan user (user journey) agar navigasi website intuitif.</p>
+                    </div>
+                </div>
+
+                <!-- Small Item: CMS -->
+                <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between group hover:border-accent/50 transition-colors reveal">
+                    <i class="ph ph-database text-4xl text-accent"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">CMS Integration</h3>
+                        <p class="text-slate-400 text-sm mt-2">Webflow atau Custom CMS agar Anda mudah mengupdate konten.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Works Section -->
+        <section id="portfolio" class="py-24 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="font-serif text-4xl md:text-6xl text-center mb-20 reveal">Karya Website Terpilih</h2>
+                
+                <!-- Project 1: Fintech -->
+                <div class="group relative mb-32 reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-7 relative overflow-hidden rounded-lg aspect-video bg-slate-800">
+                            <!-- Fixed Image URL: Dashboard/Fintech -->
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="Fintech Website Interface" 
+                                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-slate-500\'>Image not available</div>'">
+                        </div>
+                        <div class="md:col-span-5 md:-ml-12 z-10">
+                            <div class="glass-panel p-8 md:p-10 rounded-xl backdrop-blur-xl">
+                                <span class="text-accent text-xs font-bold tracking-widest uppercase mb-2 block">Fintech / SaaS</span>
+                                <h3 class="text-3xl font-serif font-bold text-white mb-4">Nova Banking Web App</h3>
+                                <p class="text-slate-400 mb-6 leading-relaxed">
+                                    Redesain website korporat dan dashboard pengguna. Fokus pada penyajian data kompleks menjadi visual yang bersih, meningkatkan user engagement sebesar 40%.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-white border-b border-white/20 pb-1 hover:border-accent hover:text-accent transition-all">
+                                    Lihat Live Website <i class="ph ph-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Luxury Real Estate -->
+                <div class="group relative mb-32 reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-5 z-10 order-2 md:order-1 md:-mr-12">
+                            <div class="glass-panel p-8 md:p-10 rounded-xl backdrop-blur-xl text-right">
+                                <span class="text-accent text-xs font-bold tracking-widest uppercase mb-2 block">Luxury Real Estate</span>
+                                <h3 class="text-3xl font-serif font-bold text-white mb-4">Skyline Residences</h3>
+                                <p class="text-slate-400 mb-6 leading-relaxed">
+                                    Website properti premium dengan fitur tur virtual 360. Menggunakan layout editorial yang menonjolkan fotografi arsitektur kelas atas.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-white border-b border-white/20 pb-1 hover:border-accent hover:text-accent transition-all">
+                                    Lihat Live Website <i class="ph ph-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7 relative overflow-hidden rounded-lg aspect-video order-1 md:order-2 bg-slate-800">
+                             <!-- Fixed Image URL: Modern Architecture -->
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop" 
+                                 alt="Real Estate Website Interface" 
+                                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-slate-500\'>Image not available</div>'">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contact" class="py-32 px-4 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent pointer-events-none"></div>
+            
+            <div class="max-w-4xl mx-auto relative z-10 reveal">
+                <p class="text-sm tracking-widest text-slate-500 uppercase mb-6">Website Anda adalah Wajah Perusahaan</p>
+                <h2 class="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-tight">
+                    Buat kompetitor Anda <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">terlihat ketinggalan zaman.</span>
+                </h2>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center mt-12">
+                    <a href="mailto:hello@architect.com" class="px-10 py-5 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-transform hover:-translate-y-1 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Mulai Proyek Website
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-white transition-colors underline decoration-slate-700 underline-offset-4">
+                        Lihat Paket Desain
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 py-12 px-8 bg-[#020202]">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2024 Architect Web Studio. Spesialis Website Korporat.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">LinkedIn</a>
+                    <a href="#" class="hover:text-white">Behance</a>
+                    <a href="#" class="hover:text-white">Dribbble</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- 1. Interaction Observer for Scroll Reveals ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 2. Navbar Glass Effect on Scroll ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('p-4');
+            } else {
+                navbar.classList.add('p-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        // --- 3. Canvas Animation (Network Constellation) ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        // Resize Canvas
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5; // Slow movement
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // Subtle dots
+                ctx.fill();
+            }
+        }
+
+        // Initialize Particles
+        for (let i = 0; i < 60; i++) { // Not too crowded
+            particles.push(new Particle());
+        }
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw Connections first
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance/1500})`; // Very subtle lines
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+    </script>
+</body>
+</html>

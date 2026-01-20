@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGNA CORP | Membangun Masa Depan</title>
+    
+    <!-- Google Fonts: Manrope (Modern Sans) & Playfair Display (Premium Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        magna: {
+                            black: '#0a0a0a',
+                            dark: '#1c1c1c',
+                            gold: '#D4AF37',
+                            goldhover: '#b5952f',
+                            gray: '#888888',
+                            light: '#f4f4f4'
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1479839672679-a46483c0e7c1?q=80&w=2010&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for "Out of the Box" feel */
+        body {
+            background-color: #0a0a0a;
+            color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+
+        /* Subtle Parallax/Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+        
+        /* Smooth Image Scale on Hover */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .group:hover .img-zoom {
+            transform: scale(1.05);
+        }
+
+        /* Modal Transitions */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation (Sticky & Minimalist) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+        <a href="#" class="text-2xl font-serif font-bold tracking-widest text-white z-50">MAGNA.</a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-12 items-center">
+            <a href="#projects" class="text-sm uppercase tracking-widest hover:text-magna-gold transition-colors">Portofolio</a>
+            <a href="#services" class="text-sm uppercase tracking-widest hover:text-magna-gold transition-colors">Keahlian</a>
+            <a href="#about" class="text-sm uppercase tracking-widest hover:text-magna-gold transition-colors">Tentang Kami</a>
+            <a href="#contact" class="px-6 py-3 border border-magna-gold text-magna-gold hover:bg-magna-gold hover:text-black transition-all duration-300 uppercase text-xs tracking-widest font-bold">
+                Hubungi Kami
+            </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white z-50">
+            <i class="ph ph-list text-3xl"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-magna-black z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-300">
+        <a href="#projects" class="text-2xl font-serif hover:text-magna-gold mobile-link">Portofolio</a>
+        <a href="#services" class="text-2xl font-serif hover:text-magna-gold mobile-link">Keahlian</a>
+        <a href="#about" class="text-2xl font-serif hover:text-magna-gold mobile-link">Tentang Kami</a>
+        <a href="#contact" class="text-2xl font-serif text-magna-gold mobile-link">Hubungi Kami</a>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <!-- Background Video/Image Placeholder -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c1?q=80&w=2010&auto=format&fit=crop" alt="Highrise Building" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-magna-black via-magna-black/40 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center md:text-left md:px-12 mt-20">
+            <p class="text-magna-gold uppercase tracking-[0.3em] text-sm mb-4 reveal">Est. 1998 — International Builders</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-8 reveal" style="transition-delay: 100ms;">
+                Membangun <br> <span class="text-magna-gold italic">Ikon</span> Masa Depan.
+            </h1>
+            <p class="text-gray-300 max-w-xl text-lg mb-10 leading-relaxed reveal" style="transition-delay: 200ms;">
+                Kami mengubah visi arsitektural menjadi realitas monumental. Mitra terpercaya untuk proyek konstruksi berskala besar dan infrastruktur kompleks.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 reveal" style="transition-delay: 300ms;">
+                <a href="#contact" class="px-8 py-4 bg-magna-gold text-magna-black font-bold uppercase tracking-widest hover:bg-white transition-colors duration-300 flex items-center justify-center gap-2">
+                    Mulai Konsultasi <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="#projects" class="px-8 py-4 border border-white/30 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors duration-300 flex items-center justify-center">
+                    Lihat Karya Kami
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="ph ph-arrow-down text-white text-2xl opacity-50"></i>
+        </div>
+    </header>
+
+    <!-- SECTION: ABOUT & PHILOSOPHY -->
+    <section id="about" class="py-24 md:py-32 bg-magna-black relative overflow-hidden">
+        <div class="absolute top-20 right-0 text-9xl font-bold text-outline opacity-10 pointer-events-none select-none hidden lg:block">
+            VISION
+        </div>
+
+        <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <div class="flex items-end gap-2 mb-6">
+                    <span class="text-6xl font-serif text-magna-gold">25</span>
+                    <span class="text-xl font-bold text-white mb-2">Tahun<br>Pengalaman</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">Lebih Dari Sekadar Beton & Baja.</h2>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    Di MAGNA, kami tidak sekadar mendirikan gedung; kami membentuk cakrawala kota. Filosofi kami menggabungkan presisi teknik sipil dengan estetika seni modern.
+                </p>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Setiap proyek dikelola dengan standar keamanan internasional dan manajemen risiko tingkat tinggi, memastikan investasi Anda aman dan hasil akhir yang prestisius.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
+                    <div>
+                        <h4 class="text-3xl font-serif text-white mb-1">150+</h4>
+                        <p class="text-xs uppercase tracking-widest text-magna-gray">Proyek Selesai</p>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-serif text-white mb-1">IDR 5T+</h4>
+                        <p class="text-xs uppercase tracking-widest text-magna-gray">Nilai Aset Dikelola</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative reveal delay-200">
+                <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-magna-gold"></div>
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Architectural Detail" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-magna-gold"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: SERVICES (KEAHLIAN) -->
+    <section id="services" class="py-24 bg-magna-dark">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-magna-gold uppercase tracking-widest text-sm font-bold">Layanan Kami</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white mt-2">Kompetensi Inti</h2>
+                </div>
+                <a href="#contact" class="hidden md:inline-block text-white border-b border-magna-gold pb-1 hover:text-magna-gold transition-colors">Unduh Profil Perusahaan</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group bg-magna-black p-8 hover:bg-white hover:transform hover:-translate-y-2 transition-all duration-500 cursor-pointer reveal">
+                    <i class="ph ph-buildings text-4xl text-magna-gold mb-6 group-hover:text-black"></i>
+                    <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-black">General Contracting</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-gray-600">
+                        Eksekusi konstruksi end-to-end untuk gedung bertingkat tinggi, komersial, dan residensial mewah dengan pengawasan ketat.
+                    </p>
+                </div>
+
+                <div class="group bg-magna-black p-8 hover:bg-white hover:transform hover:-translate-y-2 transition-all duration-500 cursor-pointer reveal delay-100">
+                    <i class="ph ph-ruler text-4xl text-magna-gold mb-6 group-hover:text-black"></i>
+                    <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-black">Design & Build</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-gray-600">
+                        Integrasi efisien antara perancangan dan pelaksanaan konstruksi untuk meminimalkan durasi proyek dan optimalisasi biaya.
+                    </p>
+                </div>
+
+                <div class="group bg-magna-black p-8 hover:bg-white hover:transform hover:-translate-y-2 transition-all duration-500 cursor-pointer reveal delay-200">
+                    <i class="ph ph-briefcase text-4xl text-magna-gold mb-6 group-hover:text-black"></i>
+                    <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-black">Project Management</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-gray-600">
+                        Konsultasi manajemen strategis untuk memastikan proyek Anda berjalan sesuai jadwal, anggaran, dan standar kualitas tertinggi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: SELECTED WORKS (PORTFOLIO) -->
+    <section id="projects" class="py-24 bg-magna-black">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-4xl md:text-5xl font-serif text-white mb-16 text-center reveal">Mahakarya Terpilih</h2>
+            
+            <div class="space-y-24">
+                <!-- Project 1: Left Aligned -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group reveal">
+                    <div class="lg:col-span-7 img-zoom-container overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop" alt="The Obsidian Tower" class="w-full h-[400px] md:h-[500px] object-cover img-zoom grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+                    </div>
+                    <div class="lg:col-span-5 lg:-ml-12 z-10 bg-magna-dark p-8 lg:p-12 shadow-2xl border-l-4 border-magna-gold">
+                        <p class="text-magna-gold text-xs font-bold tracking-widest uppercase mb-2">Mixed Use Development</p>
+                        <h3 class="text-3xl font-serif text-white mb-4">The Obsidian Tower</h3>
+                        <p class="text-gray-400 mb-6 text-sm">Jakarta, Indonesia</p>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Gedung 45 lantai dengan sertifikasi Green Building Platinum. Menggabungkan area ritel premium dan hunian eksekutif.
+                        </p>
+                        <!-- Updated to button with onclick -->
+                        <button onclick="openModal('modal-obsidian')" class="text-white hover:text-magna-gold uppercase text-xs font-bold tracking-widest flex items-center gap-2 focus:outline-none">
+                            Lihat Detail <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2: Right Aligned -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center group reveal">
+                    <div class="order-2 lg:order-1 lg:col-span-5 lg:-mr-12 z-10 bg-magna-dark p-8 lg:p-12 shadow-2xl border-r-4 border-magna-gold text-right lg:text-right">
+                        <p class="text-magna-gold text-xs font-bold tracking-widest uppercase mb-2">Corporate HQ</p>
+                        <h3 class="text-3xl font-serif text-white mb-4">Lumina Headquarters</h3>
+                        <p class="text-gray-400 mb-6 text-sm">Surabaya, Indonesia</p>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Kompleks perkantoran futuristik dengan struktur baja ekspos dan fasad kaca pintar yang beradaptasi dengan cahaya matahari.
+                        </p>
+                        <!-- Updated to button with onclick -->
+                        <button onclick="openModal('modal-lumina')" class="text-white hover:text-magna-gold uppercase text-xs font-bold tracking-widest flex items-center gap-2 justify-end ml-auto focus:outline-none">
+                            Lihat Detail <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="order-1 lg:order-2 lg:col-span-7 img-zoom-container overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" alt="Lumina HQ" class="w-full h-[400px] md:h-[500px] object-cover img-zoom grayscale group-hover:grayscale-0">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="#" class="inline-block px-10 py-4 border border-white text-white hover:bg-white hover:text-black transition-all uppercase tracking-widest text-sm font-bold">
+                    Lihat Semua Proyek
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CTA / CONTACT -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-magna-dark to-black relative">
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <span class="text-magna-gold uppercase tracking-widest text-sm font-bold">Mulai Kemitraan</span>
+                    <h2 class="text-5xl md:text-6xl font-serif text-white mt-4 mb-8">Siap Membangun Visi Besar Anda?</h2>
+                    <p class="text-gray-400 text-lg mb-12 max-w-md">
+                        Diskusikan kebutuhan proyek Anda dengan tim ahli kami. Kami memprioritaskan hubungan jangka panjang dan hasil yang ekselen.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 text-white">
+                            <div class="w-12 h-12 bg-white/10 flex items-center justify-center rounded-full text-magna-gold">
+                                <i class="ph ph-envelope-simple text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase text-gray-500 tracking-wider">Email Direktur Proyek</p>
+                                <p class="text-lg">adrian.wicaksono@magnacorp.id</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-white">
+                            <div class="w-12 h-12 bg-white/10 flex items-center justify-center rounded-full text-magna-gold">
+                                <i class="ph ph-whatsapp-logo text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase text-gray-500 tracking-wider">WhatsApp Pribadi / Darurat</p>
+                                <p class="text-lg">+62 811 9876 5432</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-white p-8 md:p-12 reveal delay-100">
+                    <h3 class="text-2xl font-serif font-bold text-magna-black mb-6">Hubungi Tim Kami</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Nama Lengkap</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-200 p-4 focus:outline-none focus:border-magna-gold transition-colors text-black" placeholder="Nama Anda">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Perusahaan</label>
+                                <input type="text" class="w-full bg-gray-50 border border-gray-200 p-4 focus:outline-none focus:border-magna-gold transition-colors text-black" placeholder="Nama Perusahaan">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Jenis Proyek</label>
+                            <select class="w-full bg-gray-50 border border-gray-200 p-4 focus:outline-none focus:border-magna-gold transition-colors text-black">
+                                <option>Gedung Bertingkat (High Rise)</option>
+                                <option>Komersial & Ritel</option>
+                                <option>Industrial</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Pesan</label>
+                            <textarea rows="4" class="w-full bg-gray-50 border border-gray-200 p-4 focus:outline-none focus:border-magna-gold transition-colors text-black" placeholder="Ceritakan singkat tentang proyek Anda"></textarea>
+                        </div>
+                        <button type="button" onclick="alert('Terima kasih. Tim kami akan segera menghubungi Anda.')" class="w-full bg-magna-black text-white py-4 font-bold uppercase tracking-widest hover:bg-magna-gold hover:text-black transition-all duration-300">
+                            Kirim Permintaan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/10 text-white">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-2xl font-serif font-bold">MAGNA.</div>
+            <div class="text-gray-500 text-sm">
+                &copy; 2024 Magna Corp. All Rights Reserved.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="ph-fill ph-twitter-logo text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUPS -->
+    <!-- Modal Obsidian Tower -->
+    <div id="modal-obsidian" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-obsidian')"></div>
+        <div class="modal-content relative bg-magna-dark w-full max-w-5xl h-auto max-h-[90vh] overflow-y-auto flex flex-col lg:flex-row shadow-2xl border border-magna-gold/20">
+            <button onclick="closeModal('modal-obsidian')" class="absolute top-4 right-4 z-50 text-white hover:text-magna-gold bg-black/50 p-2 rounded-full">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+            <div class="lg:w-1/2 relative min-h-[300px] lg:min-h-full">
+                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-8 lg:p-12 text-left">
+                <span class="text-magna-gold text-xs font-bold tracking-widest uppercase mb-2 block">Mixed Use Development</span>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-2">The Obsidian Tower</h2>
+                <p class="text-gray-400 text-sm mb-6">Jakarta Selatan | Selesai 2023</p>
+                <div class="space-y-4 text-gray-300 leading-relaxed mb-8">
+                    <p>Menetapkan standar baru untuk kehidupan urban di Jakarta Selatan, Obsidian Tower bukan hanya sekadar hunian, melainkan ekosistem vertikal yang mandiri. Menara setinggi 210 meter ini menjadi landmark baru di cakrawala kota.</p>
+                    <p>Fitur unggulan meliputi:</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-400">
+                        <li><strong>Fasad Bernapas:</strong> Skin ganda yang mengurangi beban panas hingga 30%.</li>
+                        <li><strong>Sky Garden Podium:</strong> Ruang hijau terbuka di lantai 25 untuk interaksi sosial penghuni.</li>
+                        <li><strong>Sertifikasi Greenship Platinum:</strong> Daur ulang air hujan dan panel surya terintegrasi.</li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Total Luas</p>
+                        <p class="text-white font-bold">45.000 m²</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Jumlah Lantai</p>
+                        <p class="text-white font-bold">45 Lantai + 3 Basement</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Klien</p>
+                        <p class="text-white font-bold">Barata Land Tbk</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Durasi</p>
+                        <p class="text-white font-bold">36 Bulan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lumina HQ -->
+    <div id="modal-lumina" class="modal fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-lumina')"></div>
+        <div class="modal-content relative bg-magna-dark w-full max-w-5xl h-auto max-h-[90vh] overflow-y-auto flex flex-col lg:flex-row shadow-2xl border border-magna-gold/20">
+            <button onclick="closeModal('modal-lumina')" class="absolute top-4 right-4 z-50 text-white hover:text-magna-gold bg-black/50 p-2 rounded-full">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+            <div class="lg:w-1/2 relative min-h-[300px] lg:min-h-full">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-8 lg:p-12 text-left">
+                <span class="text-magna-gold text-xs font-bold tracking-widest uppercase mb-2 block">Corporate Headquarters</span>
+                <h2 class="text-3xl md:text-4xl font-serif text-white mb-2">Lumina Headquarters</h2>
+                <p class="text-gray-400 text-sm mb-6">Surabaya, Jawa Timur | Selesai 2022</p>
+                <div class="space-y-4 text-gray-300 leading-relaxed mb-8">
+                    <p>Dirancang untuk raksasa teknologi, Lumina HQ menggabungkan fungsionalitas industri dengan kenyamanan hospitality. Gedung ini merepresentasikan budaya kerja masa depan yang transparan dan kolaboratif.</p>
+                    <p>Fitur unggulan meliputi:</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-400">
+                        <li><strong>Struktur Baja Ekspos:</strong> Estetika industrial yang menekankan kekuatan dan kejujuran material.</li>
+                        <li><strong>Smart Glass Facade:</strong> Kaca elektrokromik yang mengatur kegelapan otomatis sesuai intensitas matahari.</li>
+                        <li><strong>Open Plan Modular:</strong> Ruang kerja tanpa sekat permanen untuk fleksibilitas tim.</li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Total Luas</p>
+                        <p class="text-white font-bold">15.000 m²</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Teknologi</p>
+                        <p class="text-white font-bold">IoT Integrated Building</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Klien</p>
+                        <p class="text-white font-bold">Lumina Tech Global</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase text-gray-500">Sertifikasi</p>
+                        <p class="text-white font-bold">LEED Gold</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-magna-black', 'shadow-lg');
+                navbar.classList.remove('bg-gradient-to-b');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('bg-magna-black', 'shadow-lg');
+                navbar.classList.add('bg-gradient-to-b');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Reveal animations on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+            
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        btn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('opacity-0', 'pointer-events-none');
+                btn.innerHTML = '<i class="ph ph-x text-3xl"></i>';
+                document.body.style.overflow = 'hidden';
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                btn.innerHTML = '<i class="ph ph-list text-3xl"></i>';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                menu.classList.add('opacity-0', 'pointer-events-none');
+                btn.innerHTML = '<i class="ph ph-list text-3xl"></i>';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // MODAL LOGIC
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
